@@ -23,20 +23,20 @@ def yun(y):
     return y//4-y//100+y//400 #윤년의 정의를 이용한 해당 해까지의 윤년개수 찾는 함수
 
 def today(y,m,d): #그 해의 몇 번째 날인지 찾는 함수(y는 year, m은 month, d는 day를 나타냄)
-    if y%4==0:
+    if y%4==0 and y%100!=0 and y%400==0:
         return sum(year4_month[:m-1])+d 
     else:
         return sum(year_month[:m-1])+d
         
 
 def order(y,m,d):
-    return (y-1)*365+yun(y)+today(m,y,d) #서기 1년 부터 봤을 때 몇번째 날인지 찾는 함수
+    return (y-1)*365+yun(y)+today(y,m,d) #서기 1년 부터 봤을 때 몇번째 날인지 찾는 함수
 
         
     
-print('D-',order(the_month,the_year,the_date)-order(today_month,today_year,today_date),sep='')
+print('D-',order(the_year,the_month,the_date)-order(today_year,today_month,today_date),sep='')
 
-print(what_day[order(the_month,the_year,the_date)%7-1],'요일',sep='')
+print(what_day[order(the_year,the_month,the_date)%7-1],'요일',sep='')
 
 
 user_input = input('시스템을 종료하려면 Enter키를 누르세요')
